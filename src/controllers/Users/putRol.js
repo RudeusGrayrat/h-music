@@ -1,15 +1,19 @@
 const { Users } = require('../../db');
 
-const putRol = async (req, res) => {
+const putRol = async (email) => {
     try {
-        const { email } = req.body;
-
-        await Users.update(
+        if (!email) {
+            throw new Error('Correo electrónico no proporcionado');
+        }
+        const updatedUser = await Users.update(
             { rol: "Premium" },
             { where: { email } }
         );
-        return res.json({ success: 'Contraseña actualizada exitosamente' });
 
+        if (updatedUser[0] === 0) {
+            throw new Error('Usuario no encontrado o rol no actualizado');
+        }
+        return res.json({ success: 'Contraseña actualizada exitosamente' });
 
     } catch (error) {
         res.status(500).json({ error: 'Error al actualizar la cuenta' });

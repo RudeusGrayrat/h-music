@@ -26,6 +26,7 @@ const changeVerificationStatus = require('../controllers/Verification/changeVeri
 const Pay = require('../controllers/PasarelaStripe/Pay');
 const Paied = require('../controllers/PasarelaStripe/Paied');
 const putRol = require('../controllers/Users/putRol');
+const putUserNameAndPic = require('../controllers/Users/putUserNameAndPic');
 
 const router = Router();
 
@@ -46,6 +47,7 @@ router.get("/getUserPlaylist", getUserPlaylist);
 
 router.put("/users/:userId/editPasword", putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);
+router.put("/users/editNameAndPic", putUserNameAndPic);
 
 router.post("/users", postUsers);
 

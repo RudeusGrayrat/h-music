@@ -1,4 +1,4 @@
-const { Songs, Artists, Genres } = require("../../db");
+const { Songs, Artists, Genres, Albums } = require("../../db");
 const { Op } = require("sequelize");
 
 const getSongByTitle = async (req, res) => {
@@ -20,12 +20,43 @@ const getSongByTitle = async (req, res) => {
                     model: Genres,
                     attributes: ['name'],
                 },
+                {
+                    model: Albums,
+                    attributes: ['name'],
+                },
             ],
         });
 
-        res.status(200).json(songs || []);
+        const artists = await Artists.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
+            attributes: ['name', 'image'],
+        });
+
+        const genres = await Genres.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
+            attributes: ['name'],
+        });
+
+        const albums = await Albums.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
+            attributes: ['name', 'image'],
+        });
+
+        res.status(200).json({ songs, artists, genres, albums });
     } catch (error) {
-        res.status(500).json({ error: 'Error al obtener las canciones por título' });
+        res.status(500).json({ error: 'Error al obtener la información' });
     }
 };
 

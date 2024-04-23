@@ -5,7 +5,7 @@ const putRol = require('../Users/putRol');
 const Paied = async (req, res) => {
     try {
         const body = await req.text();
-        const email = body.email
+        const email = body.user
         const respuesta = "aprobado";
 
         // Llama al método PUT con la respuesta

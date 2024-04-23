@@ -30,7 +30,7 @@ const verification = async (req, res) => {
       to: user.email,
       subject: 'Henry Music - Verificación de correo electrónico',
       text: `Por favor, verifica tu correo electrónico siguiendo el siguiente enlace: 
-      http://localhost:3000/verification/${userName}?id=${id}&token=${verificationToken}`,
+      https://henry-music.vercel.app/verification/${userName}?id=${id}&token=${verificationToken}`,
     });
 
     res.status(200).json(sendingEmail);

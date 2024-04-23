@@ -1,6 +1,6 @@
 const api = process.env.APY_KEY_STRIPE
 const stripe = require('stripe')(api)
-const putRol = require('../controllers/u');
+const putRol = require('../Users/putRol');
 
 const Paied = async (req, res) => {
     try {

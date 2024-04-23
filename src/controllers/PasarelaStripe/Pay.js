@@ -5,7 +5,7 @@ const Pay = async (req, res) => {
           const { email } = req.body;
 
         const session = await stripe.checkout.sessions.create({
-            success_url: 'http://localhost:3000/pay',
+            success_url: 'https://henry-music.vercel.app/pay',
             line_items: [
                 {
                     price_data: {

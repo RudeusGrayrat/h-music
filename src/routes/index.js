@@ -52,8 +52,8 @@ router.put("/users/editNameAndPic", putUserNameAndPic);
 router.post("/users", postUsers);
 
 router.put("/editRol", putRol);
-router.post("pay", Pay);
-router.post("paied", Paied);
+router.post("/pay", Pay);
+router.post("/paied", Paied);
 
 router.post("/songs", postSongs);
 router.post("/genres", postGenres);

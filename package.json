@@ -24,6 +24,7 @@
     "nodemon": "^3.1.0",
     "pg": "^8.11.5",
     "sequelize": "^6.37.2",
+    "stripe": "^15.3.0",
     "underscore": "^1.13.2",
     "underscore.string": "^3.3.6",
     "uuid": "^9.0.1",

@@ -40,8 +40,8 @@ router.get("/login", login);
 router.get("/users", getUsers);
 router.get("/users/:userId", getUserById);
 router.get("/getUserPlaylist", getUserPlaylist);
-router.get("getPlaylist", getPlaylist);
-router.get("getPlaylistDetail", getPlaylistDetail);
+router.get("/getPlaylist", getPlaylist);
+router.get("/getPlaylistDetail", getPlaylistDetail);
 router.get("/verification", verification);
 router.get("/getUserPlaylist", getUserPlaylist);
 
@@ -52,8 +52,8 @@ router.put("/users/editNameAndPic", putUserNameAndPic);
 router.post("/users", postUsers);
 
 router.put("/editRol", putRol);
-router.post("pay", Pay);
-router.post("paied", Paied);
+router.post("/pay", Pay);
+router.post("/paied", Paied);
 
 router.post("/songs", postSongs);
 router.post("/genres", postGenres);

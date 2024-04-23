@@ -43,7 +43,6 @@ router.get("/getUserPlaylist", getUserPlaylist);
 router.get("/getPlaylist", getPlaylist);
 router.get("/getPlaylistDetail", getPlaylistDetail);
 router.get("/verification", verification);
-router.get("/getUserPlaylist", getUserPlaylist);
 
 router.put("/users/:userId/editPasword", putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);

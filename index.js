@@ -5,7 +5,7 @@ const {
 } = process.env;
 
 conn.sync({ alter: true }).then(() => {
-  server.listen(DB_PORT, () => {
+  server.listen(DB_PORT, "0.0.0.0", () => {
     console.log(`${DB_PORT}`);
   });
 });

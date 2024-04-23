@@ -2,10 +2,10 @@ const { Users } = require('../../db');
 
 const putRol = async (req, res) => {
     try {
-        const { email, rol } = req.body;
+        const { email } = req.body;
 
         await Users.update(
-            { rol: rol },
+            { rol: "Premium" },
             { where: { email } }
         );
         return res.json({ success: 'Contraseña actualizada exitosamente' });

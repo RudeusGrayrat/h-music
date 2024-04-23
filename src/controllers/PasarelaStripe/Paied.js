@@ -9,7 +9,7 @@ const Paied = async (req, res) => {
         const respuesta = "aprobado";
 
         // Llama al método PUT con la respuesta
-        await putRol(respuesta, email);
+        await putRol(email);
 
         return res.status(200).json(respuesta);
     } catch (error) {

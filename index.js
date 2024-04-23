@@ -4,7 +4,7 @@ const {
   DB_PORT
 } = process.env;
 
-conn.sync().then(() => {
+conn.sync({ alter: true }).then(() => {
   server.listen(DB_PORT, () => {
     console.log(`${DB_PORT}`);
   });

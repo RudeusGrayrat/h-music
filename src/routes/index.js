@@ -40,8 +40,8 @@ router.get("/login", login);
 router.get("/users", getUsers);
 router.get("/users/:userId", getUserById);
 router.get("/getUserPlaylist", getUserPlaylist);
-router.get("getPlaylist", getPlaylist);
-router.get("getPlaylistDetail", getPlaylistDetail);
+router.get("/getPlaylist", getPlaylist);
+router.get("/getPlaylistDetail", getPlaylistDetail);
 router.get("/verification", verification);
 router.get("/getUserPlaylist", getUserPlaylist);
 

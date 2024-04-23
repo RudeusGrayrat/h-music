@@ -1,11 +1,11 @@
-const api = process.env.APY_KEY_STRIPE
-const stripe = require('stripe')(api)
+const { APY_KEY_STRIPE } = process.env;
+const stripe = require('stripe')(APY_KEY_STRIPE)
 const Pay = async (req, res) => {
     try {
           const { email } = req.body;
 
         const session = await stripe.checkout.sessions.create({
-            success_url: 'http://localhost:3000/pay',
+            success_url: 'https://henry-music.vercel.app/pay',
             line_items: [
                 {
                     price_data: {

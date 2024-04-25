@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const { Users } = require('../../db'); 
+const {FRONTURL} = process.env
 
 const transporter = nodemailer.createTransport({
   host: 'mail.mail.ee',
@@ -30,7 +31,7 @@ const verification = async (req, res) => {
       to: user.email,
       subject: 'Henry Music - Verificación de correo electrónico',
       text: `Por favor, verifica tu correo electrónico siguiendo el siguiente enlace: 
-      https://henry-music.vercel.app/verification/${userName}?id=${id}&token=${verificationToken}`,
+      ${FRONTURL}/verification/${userName}?id=${id}&token=${verificationToken}`,
     });
 
     res.status(200).json(sendingEmail);

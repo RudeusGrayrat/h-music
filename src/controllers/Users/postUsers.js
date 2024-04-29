@@ -7,9 +7,12 @@ const postUsers = async (req, res) => {
         const { name, image, email, password, provider } = req.body;
         console.log(req.body);
       
-      if(password){
-      const hashedPassword = await hashPassword(password);
-      }
+        let hashedPassword;
+        
+        if(password){ 
+            hashedPassword = await hashPassword(password);
+        }
+        
         if (!name && !email) {
             return res.status(400).json({ error: 'Faltan datos obligatorios' });
         }

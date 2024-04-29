@@ -27,7 +27,7 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-const { Artists, Songs, Genres, Playlists, Users, PlaylistDetails, Likes, Albums } = sequelize.models;
+const { Artists, Songs, Genres, Playlists, Users, PlaylistDetails, Likes, Albums, Reviews } = sequelize.models;
 
 //relación "uno a muchos" entre Artistas y Canciones
 Artists.hasMany(Songs, { foreignKey: 'ArtistID' });

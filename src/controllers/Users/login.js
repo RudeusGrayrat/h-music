@@ -31,7 +31,7 @@ const login = async (req, res) => {
         }
 
         const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "5h"});
-        return res.status(200).json(user,token);
+        return res.status(200).json({user, token});
 
     } catch (error) {
         return res.status(500).json({ message: error.message });

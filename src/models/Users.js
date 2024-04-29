@@ -29,25 +29,27 @@ module.exports = (sequelize) => {
         },
         rol: {
             type: DataTypes.ENUM,
-            values: ['gratis', 'registrado', 'premium', 'baneado', 'admin'],
+            values: ['gratis', 'registrado', 'premium', 'admin'],
             allowNull: false,
             defaultValue: 'gratis'
         },
-
+        ban: {
+            type: DataTypes.BOOLEAN,
+            values: [true, false],
+            defaultValue: false,
+            allowNull: false,
+        },
         esta_verificado: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false,
         },
-
         verification_token: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: true,
         }
 
-            
-        
     },
         {
             timestamps: false

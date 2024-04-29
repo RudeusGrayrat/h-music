@@ -6,15 +6,15 @@ const postUsers = async (req, res) => {
 
         const { name, image, email, password, provider } = req.body;
         console.log(req.body);
-      
         let hashedPassword;
         
-        if(password){ 
-            hashedPassword = await hashPassword(password);
-        }
         
         if (!name && !email) {
             return res.status(400).json({ error: 'Faltan datos obligatorios' });
+        }
+
+        if(password){ 
+            hashedPassword = await hashPassword(password);
         }
 
         // Verificar si el usuario ya existe
@@ -37,11 +37,14 @@ const postUsers = async (req, res) => {
             name, 
             image,
             email, 
-            hashedPassword
+            password: hashedPassword,
         });
 
         if(provider === 'google'){
-            await newUser.update({ esta_verificado: true });
+            await newUser.update(
+                { esta_verificado: true },
+                { where: { id } }
+            );
             return res.status(201).json({
                 message: 'Usuario creado exitosamente',
             });

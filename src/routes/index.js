@@ -44,9 +44,10 @@ router.get("/getPlaylist", getPlaylist);
 router.get("/getPlaylistDetail", getPlaylistDetail);
 router.get("/verification", verification);
 
-router.put("/users/:userId/editPasword", putUser);//jwt
-router.put("/verification/changeStatus", changeVerificationStatus);//jwt
-router.put("/users/editNameAndPic" ,putUserNameAndPic); //jwt
+router.put("/users/:userId/editPasword", putUser);
+router.put("/verification/changeStatus", changeVerificationStatus);
+router.put("/users/editNameAndPic/:id", putUserNameAndPic);
+
 
 router.post("/users", postUsers);
 

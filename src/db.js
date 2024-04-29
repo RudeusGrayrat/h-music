@@ -53,6 +53,14 @@ Playlists.belongsToMany(Users, { through: Likes, foreignKey: 'PlaylistID' });
 Albums.hasMany(Songs, { foreignKey: "AlbumsID"});
 Songs.belongsTo(Albums, {foreignKey: "AlbumsID"});
 
+// Relación "muchos a uno" entre Songs y Reviews
+Songs.hasMany(Reviews, { foreignKey: 'SongsID' });
+Reviews.belongsTo(Songs, { foreignKey: 'SongsID' });
+
+// Relación "muchos a uno" entre Usuarios y Reviews
+Users.hasMany(Reviews, { foreignKey: 'UsersID' });
+Reviews.belongsTo(Users, { foreignKey: 'UsersID' });
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,     // para importart la conexión { conn } = require('./db.js');

@@ -37,16 +37,16 @@ router.get("/artists", getArtist);
 router.get("/genres", getGenres);
 router.get("/albums", getAlbums);
 router.get("/login", login);
-router.get("/users", getUsers);
+router.get("/users", getUsers); //jwt
 router.get("/users/:userId", getUserById);
 router.get("/getUserPlaylist", getUserPlaylist);
 router.get("/getPlaylist", getPlaylist);
 router.get("/getPlaylistDetail", getPlaylistDetail);
 router.get("/verification", verification);
 
-router.put("/users/:userId/editPasword", putUser);
-router.put("/verification/changeStatus", changeVerificationStatus);
-router.put("/users/editNameAndPic", putUserNameAndPic);
+router.put("/users/:userId/editPasword", putUser);//jwt
+router.put("/verification/changeStatus", changeVerificationStatus);//jwt
+router.put("/users/editNameAndPic" ,putUserNameAndPic); //jwt
 
 router.post("/users", postUsers);
 

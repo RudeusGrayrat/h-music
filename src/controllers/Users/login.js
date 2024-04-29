@@ -30,7 +30,7 @@ const login = async (req, res) => {
             return res.status(401).json({ message: "Contraseña incorrecta" });
         }
 
-        const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "1h"});
+        const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "5h"});
         return res.status(200).json(user,token);
 
     } catch (error) {

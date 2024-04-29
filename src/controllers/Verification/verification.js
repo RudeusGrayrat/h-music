@@ -14,7 +14,12 @@ const transporter = nodemailer.createTransport({
 
 const verification = async (req, res) => {
 
-  const { id } = req.query;
+  const { id, url } = req.query;
+
+    // Verificar que id y url existen
+  if (!id || !url) {
+    return res.status(400).json({ error: 'Faltan parámetros requeridos' });
+  }
 
   const user = await Users.findOne({ where: { id } });
 
@@ -25,13 +30,19 @@ const verification = async (req, res) => {
   const verificationToken = user.verification_token;
   const userName = user.name.replace(/\s+/g, '');
 
+    // Verificar que verificationToken y userName existen
+  if (!verificationToken || !userName) {
+    return res.status(400).json({ error: 'Faltan datos del usuario' });
+  }
+
+
   try {
     const sendingEmail = await transporter.sendMail({
       from: 'hmusic.proyecto@mail.ee',
       to: user.email,
       subject: 'Henry Music - Verificación de correo electrónico',
       text: `Por favor, verifica tu correo electrónico siguiendo el siguiente enlace: 
-      ${FRONTURL}/verification/${userName}?id=${id}&token=${verificationToken}`,
+      ${FRONTURL}/${url}/${userName}?id=${id}&token=${verificationToken}`,
     });
 
     res.status(200).json(sendingEmail);

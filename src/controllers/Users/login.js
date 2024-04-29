@@ -1,4 +1,7 @@
 const { Users } = require("../../db");
+const { compare } = require("../../utils/bcrypt");
+const { jsonSign } = require("../../utils/jwt");
+const { JWT_SECRET_KEY } = process.env
 
 const login = async (req, res) => {
     try {
@@ -16,11 +19,19 @@ const login = async (req, res) => {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
         
-        if (user.password === password) {
-            return res.status(200).json(user);
-        } else {
-            return res.status(403).json({ message: "Contraseña incorrecta" });
+        const response = await compare(password, user.password);
+        
+        const userData = {
+            id: user.id,
+            name: user.name,
+        } 
+
+        if (!response) {
+            return res.status(401).json({ message: "Contraseña incorrecta" });
         }
+
+        const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "5h"});
+        return res.status(200).json({user, token});
 
     } catch (error) {
         return res.status(500).json({ message: error.message });

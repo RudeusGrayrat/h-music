@@ -6,6 +6,10 @@ const getSongByTitle = require("../controllers/Songs/getSongByTitle");
 const postUsers = require('../controllers/Users/postUsers');
 const postSongs = require("../controllers/Songs/postSongs");
 const postGenres = require('../controllers/Genres/postGenres');
+const getSongsByGenre = require("../controllers/Songs/getSongsByGenre"); 
+const getReviews = require("../controllers/Reviews/getReviews");
+const getReviewsBySongId = require("../controllers/Reviews/getSongsReviews");
+const postReviews = require("../controllers/Reviews/postReview");
 const getArtist = require('../controllers/Artists/getArtists');
 const getGenres = require('../controllers/Genres/getGenres');
 const postArtists = require('../controllers/Artists/postArtists');
@@ -35,15 +39,19 @@ const router = Router();
 router.get("/songs", getSongs);
 router.get("/songs/:idSong", getSongById);
 router.get("/songs/search/:name", getSongByTitle);
+router.get("/songs/genre/:genreId", getSongsByGenre); 
+router.get("/reviews", getReviews);
+router.get("/reviews/:songId", getReviewsBySongId);
 router.get("/artists", getArtist);
 router.get("/genres", getGenres);
 router.get("/albums", getAlbums);
 router.get("/login", login);
-router.get("/users", getUsers);
+router.get("/users", getUsers); //jwt
 router.get("/users/:userId", getUserById);
 router.get("/getUserPlaylist", getUserPlaylist);
 router.get("/getPlaylist", getPlaylist);
 router.get("/getPlaylistDetail", getPlaylistDetail);
+
 router.get("/verification", verification);
 
 router.put("/users/:userId/editPasword", putUser);
@@ -52,6 +60,7 @@ router.put("/users/editNameAndPic", putUserNameAndPic);
 router.put("/editRol", putRol);
 router.put("/users/:userId/banUser", banUser);
 router.put("/users/:userId/unbanUser", unBanUser);
+router.put("/users/editNameAndPic/:id", putUserNameAndPic);
 
 router.post("/users", postUsers);
 router.post("/pay", Pay);
@@ -60,6 +69,7 @@ router.post("/paied", Paied);
 router.post("/songs", postSongs);
 router.post("/genres", postGenres);
 router.post("/artists", postArtists);
+router.post("/reviews", postReviews);
 router.post("/playlist", postPlaylist);
 router.post("/postPlaylist", postSongToPlaylist);
 router.post("/postSavingPlaylist", postSavingPlaylist);

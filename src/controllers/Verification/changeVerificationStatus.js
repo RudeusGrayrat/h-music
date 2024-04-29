@@ -26,7 +26,7 @@ const changeVerificationStatus = async (req, res) => {
 
                 { esta_verificado: true },
                 { where: { id } }
-              );
+            );
 
         res.status(200).json(updateUser);
     }

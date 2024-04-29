@@ -16,7 +16,7 @@ const putRol = async (email) => {
         return res.json({ success: 'Contraseña actualizada exitosamente' });
 
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar la cuenta' });
+        res.status(400).json({ error: 'Error al actualizar la cuenta' });
     }
 };
 

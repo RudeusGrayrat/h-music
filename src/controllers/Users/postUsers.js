@@ -1,10 +1,15 @@
 const { Users } = require('../../db');
+const { hashPassword } = require('../../utils/bcrypt');
 
 const postUsers = async (req, res) => {
     try {
+
         const { name, image, email, password, provider } = req.body;
         console.log(req.body);
-
+      
+      if(password){
+      const hashedPassword = await hashPassword(password);
+      }
         if (!name && !email) {
             return res.status(400).json({ error: 'Faltan datos obligatorios' });
         }
@@ -24,11 +29,12 @@ const postUsers = async (req, res) => {
             });
         }
 
+
         const newUser = await Users.create({
             name, 
             image,
             email, 
-            password
+            hashedPassword
         });
 
         if(provider === 'google'){

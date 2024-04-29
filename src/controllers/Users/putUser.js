@@ -1,4 +1,5 @@
 const { Users } = require('../../db');
+const { hashPassword } = require('../../utils/bcrypt');
 
 const putUser = async (req, res) => {
     try {
@@ -21,8 +22,10 @@ const putUser = async (req, res) => {
         if (password !== user.password) {
             return res.status(401).json({ error: 'Contraseña actual incorrecta' });
         } else {
+            const hashedPassword = await hashPassword(newPassword);
+            
             const [updatedUser] = await Users.update(
-                { password: newPassword },
+                { password: hashedPassword },
                 { where: { email } }
             );
             if (updatedUser > 0) {

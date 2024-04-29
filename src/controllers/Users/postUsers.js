@@ -42,8 +42,8 @@ const postUsers = async (req, res) => {
 
         if(provider === 'google'){
             await newUser.update(
-                { esta_verificado: true },
-                { where: { id } }
+                { esta_verificado: true }, 
+                { where: { id: newUser.id } }
             );
             return res.status(201).json({
                 message: 'Usuario creado exitosamente',

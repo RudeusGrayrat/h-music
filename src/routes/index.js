@@ -32,6 +32,8 @@ const Paied = require('../controllers/PasarelaStripe/Paied');
 const putRol = require('../controllers/Users/putRol');
 const putUserNameAndPic = require('../controllers/Users/putUserNameAndPic');
 const verifcationMiddleware = require('../utils/verificationMiddleware');
+const banUser = require('../controllers/Users/banUser');
+const unBanUser = require('../controllers/Users/unBanUser');
 
 const router = Router();
 
@@ -55,12 +57,13 @@ router.get("/verification", verification);
 
 router.put("/users/:userId/editPasword", verifcationMiddleware, putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);
+router.put("/users/editNameAndPic", putUserNameAndPic);
+router.put("/editRol", putRol);
+router.put("/users/:userId/banUser", banUser);
+router.put("/users/:userId/unbanUser", unBanUser);
 router.put("/users/editNameAndPic/:id", putUserNameAndPic);
 
-
 router.post("/users", postUsers);
-
-router.put("/editRol", putRol);
 router.post("/pay", Pay);
 router.post("/paied", Paied);
 

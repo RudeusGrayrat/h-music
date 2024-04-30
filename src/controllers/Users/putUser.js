@@ -1,4 +1,5 @@
 const { Users } = require('../../db');
+const bcrypt = require('bcrypt');
 const { hashPassword } = require('../../utils/bcrypt');
 
 const putUser = async (req, res) => {
@@ -6,21 +7,24 @@ const putUser = async (req, res) => {
         const { email, password, newPassword } = req.body;
 
         if (req.method !== 'PUT') {
-            return res.status(405).json({ error: 'Método no permitido' });
+            return res.status(405).json({error: 'Método no permitido. Por favor, utiliza el método PUT.'});
         }
 
 
         if (!email || !password || !newPassword) {
-            return res.status(400).json({ error: 'Correo electrónico, contraseña actual y nueva contraseña son requeridos' });
+            return res.status(400).json({ error: 'Faltan datos. Correo electrónico, contraseña actual y nueva contraseña son requeridos.' });
         }
+
         const user = await Users.findOne({ where: { email } });
+
         if (!user) {
-            return res.status(404).json({ error: 'Usuario no encontrado' });
+            return res.status(404).json({ error: 'Usuario no encontrado. Por favor, verifica el correo electrónico proporcionado.' });
         }
 
+        const isMatch = await bcrypt.compare(password, user.password);
 
-        if (password !== user.password) {
-            return res.status(401).json({ error: 'Contraseña actual incorrecta' });
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Contraseña actual incorrecta. Por favor, verifica tu contraseña.' });
         } else {
             const hashedPassword = await hashPassword(newPassword);
             
@@ -37,7 +41,7 @@ const putUser = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar la cuenta' });
+        res.status(500).json({ error: 'Error interno del servidor al actualizar la cuenta. Por favor, intenta de nuevo más tarde.' });
     }
 };
 

@@ -31,6 +31,7 @@ const Pay = require('../controllers/PasarelaStripe/Pay');
 const Paied = require('../controllers/PasarelaStripe/Paied');
 const putRol = require('../controllers/Users/putRol');
 const putUserNameAndPic = require('../controllers/Users/putUserNameAndPic');
+const verifcationMiddleware = require('../utils/verificationMiddleware');
 
 const router = Router();
 
@@ -52,7 +53,7 @@ router.get("/getPlaylistDetail", getPlaylistDetail);
 
 router.get("/verification", verification);
 
-router.put("/users/:userId/editPasword", putUser);
+router.put("/users/:userId/editPasword", verifcationMiddleware, putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);
 router.put("/users/editNameAndPic/:id", putUserNameAndPic);
 

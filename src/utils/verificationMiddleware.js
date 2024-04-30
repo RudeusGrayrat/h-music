@@ -1,18 +1,23 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY } = process.env;
+const { jsonVerify } = require("./jwt")
 
-const verifcationMiddleware = async (req, res, next) => {
-    const token = req.headers["x-access-token"];
-    const secretKey = JWT_SECRET_KEY;
+const verifcationMiddleware = (req, res, next) => {
     
-    if (!token) {
-        return res.status(401).json({ message: "No hay token suministrado por el front" });
+    const token = req.headers.authorization;
+    if(!token) return res.status(401).json({message: "No se recibio ningun token"});
+    
+    console.log(token);
+    const verifyCallback = (err, decoded) => {
+        if(err) return res.status(401).json({message: "Token invalido"});
+
+        req.user = decoded;
+
+        next();
     }
-    try {
-     
-    } catch (error) {
-        
-    }
+
+    jsonVerify(token, JWT_SECRET_KEY, verifyCallback);
+
 
 }
 

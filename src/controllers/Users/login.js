@@ -30,6 +30,10 @@ const login = async (req, res) => {
             return res.status(401).json({ message: "Contraseña incorrecta" });
         }
 
+        if(user.ban) {
+            return res.status(408).json({ message: "Usuario baneado" });
+        }
+
         const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "5h"});
         return res.status(200).json({user, token});
 

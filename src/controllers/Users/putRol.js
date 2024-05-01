@@ -1,4 +1,15 @@
 const { Users } = require('../../db');
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    host: 'mail.mail.ee',
+    prot: 587,
+    secure: false,
+    auth: {
+      user: 'hmusic.proyecto@mail.ee',
+      pass: 'D?YHfq9P!m'
+    }
+  });
 
 const putRol = async (email) => {
     try {
@@ -10,10 +21,20 @@ const putRol = async (email) => {
             { where: { email } }
         );
 
+        
+        await transporter.sendMail({
+        from: 'hmusic.proyecto@mail.ee',
+        to: email,
+        subject: 'Henry Music - Se ha Confirmado tu pago',
+        text: `Gracias por tu suscripcion, se ha confirmado el pago, puedes disfrutar de todos
+        los beneficios de Henry - Music Premium`,
+        });
+            
+
         if (updatedUser[0] === 0) {
             throw new Error('Usuario no encontrado o rol no actualizado');
         }
-        return res.json({ success: 'Contraseña actualizada exitosamente' });
+        return res.json({ success: 'Rol cambiado exitosamente' });
 
     } catch (error) {
         res.status(400).json({ error: 'Error al actualizar la cuenta' });

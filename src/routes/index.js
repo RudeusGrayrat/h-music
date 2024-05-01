@@ -57,17 +57,16 @@ router.get("/verification", verification);
 
 router.put("/users/:userId/editPasword", verifcationMiddleware, putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);
-router.put("/users/editNameAndPic", putUserNameAndPic);
-router.put("/editRol", putRol);
-router.put("/users/:userId/banUser", banUser);
-router.put("/users/:userId/unbanUser", unBanUser);
-router.put("/users/editNameAndPic/:id", putUserNameAndPic);
+router.put("/editRol", verifcationMiddleware, putRol);
+router.put("/users/:userId/banUser", verifcationMiddleware, banUser);
+router.put("/users/:userId/unbanUser", verifcationMiddleware, unBanUser);
+router.put("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
 
 router.post("/users", postUsers);
 router.post("/pay", Pay);
 router.post("/paied", Paied);
 
-router.post("/songs", postSongs);
+router.post("/songs", verifcationMiddleware, postSongs);  //jwt
 router.post("/genres", postGenres);
 router.post("/artists", postArtists);
 router.post("/reviews", postReviews);

@@ -2,11 +2,13 @@ const api = process.env.APY_KEY_STRIPE
 const stripe = require('stripe')(api)
 const putRol = require('../Users/putRol');
 
+
 const Paied = async (req, res) => {
     try {
         const { metadata } = req.body;
         const email = metadata.user
         const respuesta = "aprobado";
+
 
         // Llama al método PUT con la respuesta
         await putRol(email);

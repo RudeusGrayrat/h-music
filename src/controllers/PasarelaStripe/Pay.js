@@ -1,11 +1,11 @@
-const { APY_KEY_STRIPE } = process.env;
+const { APY_KEY_STRIPE, FRONTURL} = process.env;
 const stripe = require('stripe')(APY_KEY_STRIPE)
 const Pay = async (req, res) => {
     try {
           const { email } = req.body;
 
         const session = await stripe.checkout.sessions.create({
-            success_url: 'https://henry-music.vercel.app/pay',
+            success_url: `${FRONTURL}/pay`,
             line_items: [
                 {
                     price_data: {

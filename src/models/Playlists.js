@@ -5,9 +5,9 @@ module.exports = (sequelize) => {
     // defino el modelo
     sequelize.define('Playlists', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-            autoIncrement: true,
             allowNull: false,
         },
         name: {

@@ -34,6 +34,9 @@ const putUserNameAndPic = require('../controllers/Users/putUserNameAndPic');
 const verifcationMiddleware = require('../utils/verificationMiddleware');
 const banUser = require('../controllers/Users/banUser');
 const unBanUser = require('../controllers/Users/unBanUser');
+const putPlaylist = require('../controllers/Playlists/putPlaylist');
+const deletePlaylist = require('../controllers/Playlists/deletePlaylist');
+const deleteSongInPlaylist = require('../controllers/Playlists/deleteSongInPlaylist');
 
 const router = Router();
 
@@ -58,6 +61,7 @@ router.get("/verification", verification);
 router.put("/users/:userId/editPasword", verifcationMiddleware, putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);
 router.put("/editRol", verifcationMiddleware, putRol);
+router.put("/playlist/putPlaylist"), putPlaylist
 router.put("/users/:userId/banUser", verifcationMiddleware, banUser);
 router.put("/users/:userId/unbanUser", verifcationMiddleware, unBanUser);
 router.put("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
@@ -74,6 +78,9 @@ router.post("/playlist", postPlaylist);
 router.post("/postPlaylist", postSongToPlaylist);
 router.post("/postSavingPlaylist", postSavingPlaylist);
 router.post("/albums", postAlbums);
+
+router.delete("playlist/deletePlaylist/:id", deletePlaylist);
+router.delete("/playlist/deleteSongFromPlaylist/:songId/:playlistId", deleteSongInPlaylist);
 
 
 module.exports = router;

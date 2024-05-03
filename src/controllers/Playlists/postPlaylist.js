@@ -20,12 +20,23 @@ const postPlaylist = async (req, res) => {
         return res.status(400).json({ error: 'El usuario no existe' });
       }
 
+    const amountOfPlaylists = await Playlists.findAll({
+      where: {
+        UsersID: userId
+      }
+    });
+
+    if(user.rol !== 'premium' && user.rol !== 'admin' && amountOfPlaylists.length >= 5) {
+      return res.status(400).json({ error: 'No puedes crear mas de 5 playlists' });
+    }
+
     const newPlaylist = await Playlists.create({
       name: name,
       UsersID: userId, 
     });
 
     return res.status(200).json(newPlaylist);
+    
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message });

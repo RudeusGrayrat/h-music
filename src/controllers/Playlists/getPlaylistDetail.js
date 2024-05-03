@@ -9,12 +9,14 @@ const getPlaylistDetail = async (req, res) => {
 
 
     if (!id) { 
+        console.log('Falta el ID de la playlist en la solicitud');
         return res.status(400).json({ error: 'Falta el ID de la playlist en la solicitud' });
     }
 
     const playlist = await Playlists.findByPk(id);
 
     if (!playlist) {
+        console.log(`No se encontró una playlist con el ID ${id}`);
         return res.status(404).json({ error: `No se encontró una playlist con el ID ${id}` });
     }
 
@@ -23,14 +25,10 @@ const getPlaylistDetail = async (req, res) => {
             where: {
                 PlaylistID: id
             },
-            include: [
-                {
-                    model: Songs
-                }
-            ]
         });
 
         if (playlistDetail.length === 0) {
+            console.log('No se encontraron detalles para esta playlist');
             return res.status(404).json({ error: 'No se encontraron detalles para esta playlist' });
         } else {
             return res.status(200).json(playlistDetail);

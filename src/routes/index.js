@@ -54,7 +54,7 @@ router.get("/users", getUsers); //jwt
 router.get("/users/:userId", getUserById);
 router.get("/getUserPlaylist/:userId", getUserPlaylist);
 router.get("/getPlaylist", getPlaylist);
-router.get("/getPlaylistDetail/:Id", getPlaylistDetail);
+router.get("/getPlaylistDetail/:id", getPlaylistDetail);
 
 router.get("/verification", verification);
 

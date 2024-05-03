@@ -1,11 +1,10 @@
-const { PlaylistDetails, Songs, Playlists  } = require('../../db');
+const { PlaylistDetails, Songs, Playlists } = require('../../db');
 
 //este controlador es para consulta el detalles de una playlist especifica
 //que requiera el usuario
 
 const getPlaylistDetail = async (req, res) => {
     const { id } = req.params;
-    console.log('getPlaylistDetail: ',id);
 
 
     if (!id) { 
@@ -14,6 +13,7 @@ const getPlaylistDetail = async (req, res) => {
     }
 
     const playlist = await Playlists.findByPk(id);
+    console.log('playlist',playlist);
 
     if (!playlist) {
         console.log(`No se encontró una playlist con el ID ${id}`);
@@ -26,12 +26,24 @@ const getPlaylistDetail = async (req, res) => {
                 PlaylistID: id
             },
         });
+        
+            const response = {
+                dataValues: {
+                    id: playlist.id,
+                    name: playlist.name,
+                    UsersID: playlist.UsersID,
+                    image: playlist.image,
+                },
+                playlistDetail: playlistDetail
+            };
+            
+            return res.status(200).json(response);
+        
 
         if (playlistDetail.length === 0) {
             console.log('No se encontraron detalles para esta playlist');
             return res.status(404).json({ error: 'No se encontraron detalles para esta playlist' });
         } else {
-            return res.status(200).json(playlistDetail);
         }
     } catch (error) {
         console.error('Error al buscar los detalles de la playlist:', error);

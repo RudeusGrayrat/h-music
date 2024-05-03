@@ -52,7 +52,7 @@ router.get("/albums", getAlbums);
 router.get("/login", login);
 router.get("/users", getUsers); //jwt
 router.get("/users/:userId", getUserById);
-router.get("/getUserPlaylist", getUserPlaylist);
+router.get("/getUserPlaylist/:userId", getUserPlaylist);
 router.get("/getPlaylist", getPlaylist);
 router.get("/getPlaylistDetail", getPlaylistDetail);
 

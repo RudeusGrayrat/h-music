@@ -1,5 +1,8 @@
 const { Users } = require('../../db');
 const { hashPassword } = require('../../utils/bcrypt');
+const jwt = require('jsonwebtoken');
+
+
 
 const postUsers = async (req, res) => {
     try {
@@ -26,9 +29,11 @@ const postUsers = async (req, res) => {
         }
 
         if(provider === 'google' && existingUser){
+            const token = jwt.sign({ id: existingUser.id }, 'tu_secreto', { expiresIn: '1h' }); // Reemplaza 'tu_secreto' con tu clave secreta
+            existingUser.token = token;
             return res.status(201).json({
                 message: 'secion iniciada exitosamente',
-            
+                user: existingUser,
             });
         }
 
@@ -45,8 +50,12 @@ const postUsers = async (req, res) => {
                 { esta_verificado: true }, 
                 { where: { id: newUser.id } }
             );
+            const token = jwt.sign({ id: newUser.id }, 'tu_secreto', { expiresIn: '5h' }); // Reemplaza 'tu_secreto' con tu clave secreta
+            newUser.token = token;
+
             return res.status(201).json({
                 message: 'Usuario creado exitosamente',
+                user: newUser,
             });
         }
 

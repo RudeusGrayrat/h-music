@@ -10,6 +10,10 @@ const postPlaylist = async (req, res) => {
       return res.status(400).json({ error: 'El nombre de la playlist es obligatorio' });
     }
 
+    // Verificar que se proporcionó un userId
+    if (!userId) {
+      return res.status(400).json({ error: 'El ID del usuario es obligatorio' });
+    }
     const user = await Users.findOne({
         where: {
           id: userId
@@ -39,7 +43,7 @@ const postPlaylist = async (req, res) => {
     
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: error.message });
+    return res.status(500).json({ error: 'Error interno del servidor al crear la playlist' });
   }
 };
 

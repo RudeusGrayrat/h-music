@@ -24,7 +24,6 @@ const getUserPlaylist = async (req, res) => {
         if (playlists.length === 0) {
             return res.status(404).json({ error: 'No hay playlists disponibles para este usuario' });
         } else {
-            console.log(playlists)
             return res.status(200).json(playlists);
         }
 

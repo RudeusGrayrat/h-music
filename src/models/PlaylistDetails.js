@@ -13,7 +13,7 @@ module.exports = (sequelize) =>{
         },
     },
     PlaylistID: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: 'Playlists',

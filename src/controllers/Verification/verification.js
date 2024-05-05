@@ -29,7 +29,7 @@ const verification = async (req, res) => {
   }
 
   
-  const verificationToken = user.token;
+  const verificationToken = user.verification_token;
   const userName = user.name.replace(/\s+/g, '');
 
     // Verificar que verificationToken y userName existen

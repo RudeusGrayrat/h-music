@@ -15,10 +15,11 @@ const transporter = nodemailer.createTransport({
 const verification = async (req, res) => {
 
   const { id, url } = req.query;
-
+  
     // Verificar que id y url existen
   if (!id || !url) {
     return res.status(400).json({ error: 'Faltan parámetros requeridos' });
+
   }
 
   const user = await Users.findOne({ where: { id } });
@@ -27,11 +28,13 @@ const verification = async (req, res) => {
     return res.status(404).json({ error: 'Usuario no encontrado' });
   }
 
-  const verificationToken = user.verification_token;
+  
+  const verificationToken = user.token;
   const userName = user.name.replace(/\s+/g, '');
 
     // Verificar que verificationToken y userName existen
   if (!verificationToken || !userName) {
+    console.log("entre aqui");
     return res.status(400).json({ error: 'Faltan datos del usuario' });
   }
 

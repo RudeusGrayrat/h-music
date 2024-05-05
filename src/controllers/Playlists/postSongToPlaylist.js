@@ -21,7 +21,7 @@ const postSongToPlaylist = async(req,res) => {
                 PlaylistID: playlistId,
                 SongsID: songId
               });
-             return res.status(200).json(newPlaylistDetails); 
+            return res.status(200).json(newPlaylistDetails); 
           }
           
           

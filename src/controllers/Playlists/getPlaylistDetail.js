@@ -1,16 +1,21 @@
 const { PlaylistDetails, Songs, Playlists } = require('../../db');
 
+const sendErrorResponse = (res, status, message) => {
+    console.error(message);
+    return res.status(status).json({ error: message });
+}
+
 const getPlaylistDetail = async (req, res) => {
     const { id } = req.params;
 
     if (!id) { 
-        return res.status(400).json({ error: 'Falta el ID de la playlist en la solicitud' });
+        return sendErrorResponse(res, 400, 'Falta el ID de la playlist en la solicitud');
     }
 
     const playlist = await Playlists.findByPk(id);
 
     if (!playlist) {
-        return res.status(404).json({ error: `No se encontró una playlist con el ID ${id}` });
+        return sendErrorResponse(res, 404, `No se encontró una playlist con el ID ${id}`);
     }
 
     try {
@@ -19,10 +24,6 @@ const getPlaylistDetail = async (req, res) => {
                 PlaylistID: id
             },
         });
-        
-        if (playlistDetails.length === 0) {
-            return res.status(200).json('No se encontraron detalles para esta playlist');
-        }
 
         const songs = await Promise.all(playlistDetails.map(detail => Songs.findByPk(detail.SongsID)));
 
@@ -33,14 +34,13 @@ const getPlaylistDetail = async (req, res) => {
                 UsersID: playlist.UsersID,
                 image: playlist.image,
             },
-            playlistDetails,
+            // playlistDetails,
             songs
         };
         
         return res.status(200).json(response);
     } catch (error) {
-        console.error('Error al buscar los detalles de la playlist:', error);
-        return res.status(500).json({ error: 'Error interno del servidor al buscar los detalles de la playlist' });
+        return sendErrorResponse(res, 500, 'Error interno del servidor al buscar los detalles de la playlist');
     }
 }
 

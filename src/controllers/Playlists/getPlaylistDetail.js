@@ -34,7 +34,7 @@ const getPlaylistDetail = async (req, res) => {
                 UsersID: playlist.UsersID,
                 image: playlist.image,
             },
-            // playlistDetails,
+            playlistDetails,
             songs
         };
         

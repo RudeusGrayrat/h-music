@@ -18,6 +18,10 @@ module.exports = (sequelize) =>{
             key: 'id', // 
         },
     },
+    SongsImage:{
+        type: DataTypes.STRING,
+        allowNull: true,},
+        
     PlaylistID: {
         type: DataTypes.UUID,
         allowNull: false,

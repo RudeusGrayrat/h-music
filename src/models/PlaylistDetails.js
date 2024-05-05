@@ -4,6 +4,12 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) =>{
     // defino el modelo
     sequelize.define('PlaylistDetails', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        allowNull: true,
+    },
     SongsID: {
         type: DataTypes.INTEGER,
         allowNull: false,

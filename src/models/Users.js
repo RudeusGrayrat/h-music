@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
             defaultValue: false,
             allowNull: false,
         },
-        token: {
+        verification_token: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: true,

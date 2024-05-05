@@ -61,7 +61,7 @@ router.get("/verification", verification);
 router.put("/users/:userId/editPasword", verifcationMiddleware, putUser);
 router.put("/verification/changeStatus", changeVerificationStatus);
 router.put("/editRol", verifcationMiddleware, putRol);
-router.put("/playlist/putPlaylist"), putPlaylist
+router.put("/playlist/putPlaylist", putPlaylist);
 router.put("/users/:id/banUser", verifcationMiddleware, banUser);
 router.put("/users/:id/unbanUser", verifcationMiddleware, unBanUser);
 router.put("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);

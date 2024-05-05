@@ -20,6 +20,14 @@ module.exports = (sequelize) =>{
             key: 'id',
         },
     },
+    ArtistName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    GenreName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
 },
 {
     timestamps: false

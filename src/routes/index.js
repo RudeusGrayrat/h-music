@@ -80,7 +80,7 @@ router.post("/postSavingPlaylist", postSavingPlaylist);
 router.post("/albums", postAlbums);
 
 router.delete("/playlist/deleteSongFromPlaylist", deleteSongInPlaylist);
-router.delete("playlist/deletePlaylist/:id", deletePlaylist);
+router.delete("/playlist/deletePlaylist/:id", deletePlaylist);
 
 
 module.exports = router;

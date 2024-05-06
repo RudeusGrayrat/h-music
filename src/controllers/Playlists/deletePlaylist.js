@@ -7,13 +7,11 @@ const deletePlaylist = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const playListToDelete = await Playlists.findOne({
-            where: {
-                id
-            }
-        });
-        if (!playListToDelete) {    
+        const playListToDelete = await Playlists.findByPk(id);
 
+        
+
+        if (!playListToDelete) {    
             return res.status(404).json({ error: 'La playlist no existe' });
         }
 

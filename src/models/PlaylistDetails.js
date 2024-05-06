@@ -22,6 +22,10 @@ module.exports = (sequelize) =>{
         type: DataTypes.STRING,
         allowNull: true,},
         
+    SongsName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },    
     PlaylistID: {
         type: DataTypes.UUID,
         allowNull: false,

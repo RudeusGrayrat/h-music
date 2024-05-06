@@ -11,6 +11,7 @@ const postSongToPlaylist = async(req,res) => {
             include: [Artists, Genres]
         });
 
+
         if (!song) {
             return res.status(400).json({ error: 'La canción no existe' });
         }
@@ -30,7 +31,8 @@ const postSongToPlaylist = async(req,res) => {
                 SongsID: songId,
                 ArtistName: song.Artist.dataValues.name, 
                 GenreName: song.Genre.dataValues.name,
-                SongsImage: song.dataValues.image
+                SongsImage: song.dataValues.image,
+                SongsName: song.dataValues.name
             });
             return res.status(200).json(newPlaylistDetails); 
         }

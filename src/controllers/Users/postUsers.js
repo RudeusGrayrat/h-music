@@ -1,8 +1,9 @@
 const { Users } = require('../../db');
 const { hashPassword } = require('../../utils/bcrypt');
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET_KEY } = process.env;
 
-
+const secret = JWT_SECRET_KEY || 'tu_secreto';
 
 const postUsers = async (req, res) => {
     try {
@@ -23,17 +24,18 @@ const postUsers = async (req, res) => {
         // Verificar si el usuario ya existe
         const existingUser = await Users.findOne({ where: { email } });
 
-        if (existingUser && !provider) {
+        if (existingUser && provider !== 'google') {
             console.log('El usuario ya existe');
             return res.status(400).json({ error: 'El usuario ya existe' });
         }
 
         if(provider === 'google' && existingUser){
-            const token = jwt.sign({ id: existingUser.id }, 'tu_secreto', { expiresIn: '5h' }); 
-            existingUser.token = token;
+            const token = jwt.sign({ id: existingUser.id }, secret, { expiresIn: '5h' }); 
+
             return res.status(201).json({
                 message: 'secion iniciada exitosamente',
                 user: existingUser,
+                token,
             });
         }
 
@@ -50,12 +52,12 @@ const postUsers = async (req, res) => {
                 { esta_verificado: true }, 
                 { where: { id: newUser.id } }
             );
-            const token = jwt.sign({ id: newUser.id }, 'tu_secreto', { expiresIn: '5h' });
-            newUser.token = token;
+            const token = jwt.sign({ id: newUser.id }, secret, { expiresIn: '5h' });
 
             return res.status(201).json({
                 message: 'Usuario creado exitosamente',
                 user: newUser,
+                token,
             });
         }
 

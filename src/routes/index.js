@@ -37,6 +37,9 @@ const unBanUser = require('../controllers/Users/unBanUser');
 const putPlaylist = require('../controllers/Playlists/putPlaylist');
 const deletePlaylist = require('../controllers/Playlists/deletePlaylist');
 const deleteSongInPlaylist = require('../controllers/Playlists/deleteSongInPlaylist');
+const addSongsToAlbum = require('../controllers/Albums/addSongsToAlbum');
+const editAlbum = require('../controllers/Albums/editAlbum');
+const deleteAlbum = require('../controllers/Albums/deleteAlbum');
 
 const router = Router();
 
@@ -65,6 +68,8 @@ router.put("/playlist/putPlaylist", putPlaylist);
 router.put("/users/:id/banUser", verifcationMiddleware, banUser);
 router.put("/users/:id/unbanUser", verifcationMiddleware, unBanUser);
 router.put("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
+router.put("/albums/editAlbum", addSongsToAlbum);
+router.put("/albums/editAlbum/edit", editAlbum)
 
 router.post("/users", postUsers);
 router.post("/pay", Pay);
@@ -81,6 +86,7 @@ router.post("/albums", postAlbums);
 
 router.delete("/playlist/deleteSongFromPlaylist", deleteSongInPlaylist);
 router.delete("/playlist/deletePlaylist/:id", deletePlaylist);
+router.delete("/albums/deleteAlbum", deleteAlbum);
 
 
 module.exports = router;

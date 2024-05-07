@@ -29,7 +29,7 @@ const postUsers = async (req, res) => {
         }
 
         if(provider === 'google' && existingUser){
-            const token = jwt.sign({ id: existingUser.id }, 'tu_secreto', { expiresIn: '1h' }); // Reemplaza 'tu_secreto' con tu clave secreta
+            const token = jwt.sign({ id: existingUser.id }, 'tu_secreto', { expiresIn: '5h' }); 
             existingUser.token = token;
             return res.status(201).json({
                 message: 'secion iniciada exitosamente',
@@ -50,7 +50,7 @@ const postUsers = async (req, res) => {
                 { esta_verificado: true }, 
                 { where: { id: newUser.id } }
             );
-            const token = jwt.sign({ id: newUser.id }, 'tu_secreto', { expiresIn: '5h' }); // Reemplaza 'tu_secreto' con tu clave secreta
+            const token = jwt.sign({ id: newUser.id }, 'tu_secreto', { expiresIn: '5h' });
             newUser.token = token;
 
             return res.status(201).json({

@@ -16,10 +16,10 @@ module.exports = (sequelize) => {
             type: DataTypes.DOUBLE,
             allowNull: false,
             validate: {
-                min: 1,
+                min: 0.5,
                 max: 5
             }
-        },
+        },        
         SongsID: {
             type: DataTypes.INTEGER,
             allowNull: false,

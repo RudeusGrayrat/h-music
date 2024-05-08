@@ -15,7 +15,7 @@ module.exports = (sequelize) =>{
         allowNull: false,
         references: {
             model: 'Songs',
-            key: 'id', // 
+            key: 'id', 
         },
     },
     SongsImage:{

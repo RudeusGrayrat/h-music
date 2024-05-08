@@ -5,35 +5,22 @@ const getSongByTitle = async (req, res) => {
     try {
         const { name } = req.params;
 
-        const songs = await Songs.findAll({
-            where: {
-                name: {
-                    [Op.iLike]: `%${name}%`
-                }
-            },
-            include: [
-                {
-                    model: Artists,
-                    attributes: ['name'],
-                },
-                {
-                    model: Genres,
-                    attributes: ['name'],
-                },
-                {
-                    model: Albums,
-                    attributes: ['name'],
-                },
-            ],
-        });
-
         const artists = await Artists.findAll({
             where: {
                 name: {
                     [Op.iLike]: `%${name}%`
                 }
             },
-            attributes: ['name', 'image'],
+            attributes: ['id', 'name', 'image'],
+        });
+
+        const albums = await Albums.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            },
+            attributes: ['name', 'image']
         });
 
         const genres = await Genres.findAll({
@@ -45,17 +32,25 @@ const getSongByTitle = async (req, res) => {
             attributes: ['name'],
         });
 
-        const albums = await Albums.findAll({
+        const songs = await Songs.findAll({
             where: {
-                name: {
-                    [Op.iLike]: `%${name}%`
-                }
+                [Op.or]: [
+                    { name: { [Op.iLike]: `%${name}%` } },
+                    { '$Artist.name$': { [Op.iLike]: `%${name}%` } },
+                    { '$Album.name$': { [Op.iLike]: `%${name}%` } },
+                    { '$Genre.name$': { [Op.iLike]: `%${name}%` } }
+                ]
             },
-            attributes: ['name', 'image'],
+            include: [
+                { model: Artists, attributes: ['name'] },
+                { model: Albums, attributes: ['name', 'image'] },
+                { model: Genres, attributes: ['name'] }
+            ]
         });
 
         res.status(200).json({ songs, artists, genres, albums });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Error al obtener la información' });
     }
 };

@@ -9,7 +9,7 @@ const unBanUser = async (req, res) => {
         );
         if (rowsUpdated === 0) {
             return res.status(404).json({ message: 'Usuario no encontrado.' });
-        }
+        }//
         return res.status(200).json({ message: 'Usuario desbaneado exitosamente.', user });
     } catch (error) {
         return res.status(400).json({ error: 'Error al desbanear usuario' });

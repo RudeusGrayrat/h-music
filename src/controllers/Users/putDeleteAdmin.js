@@ -1,6 +1,6 @@
 const { Users } = require("../../db");
 
-const putAdmin = async (req, res) => {
+const putDeleteAdmin = async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -9,7 +9,7 @@ const putAdmin = async (req, res) => {
         }
 
         await Users.update(
-            { rol: "admin" },
+            { rol: "remium" },
             {
                 where: {
                     id: userId
@@ -17,10 +17,10 @@ const putAdmin = async (req, res) => {
             }
         );
 
-        return res.status(200).json({ message: "El usuario ahora es administrador." });
+        return res.status(200).json({ message: "El usuario dejó de ser administrador." });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
-module.exports = putAdmin;
+module.exports = putDeleteAdmin;

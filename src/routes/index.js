@@ -42,6 +42,7 @@ const editAlbum = require('../controllers/Albums/editAlbum');
 const deleteAlbum = require('../controllers/Albums/deleteAlbum');
 const albumSongMove = require('../controllers/Albums/albumSongMove');
 const putAdmin = require('../controllers/Users/putAdmin');
+const putDeleteAdmin = require('../controllers/Users/putDeleteAdmin');
 
 const router = Router();
 
@@ -74,6 +75,7 @@ router.put("/albums/editAlbum", addSongsToAlbum);
 router.put("/albums/editAlbum/edit", editAlbum)
 router.put("/albums/albumSongMove", albumSongMove)
 router.put("/albums/:userId/putAdmin", putAdmin)
+router.put("/albums/:userId/putDeleteAdmin", putDeleteAdmin)
 
 router.post("/users", postUsers);
 router.post("/pay", Pay);

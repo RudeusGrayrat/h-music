@@ -22,7 +22,7 @@ const addSongsToAlbum = async (req, res) => {
 
         await song.update({ AlbumsID: albumsId });
         
-        res.status(200).json({message: "Cancion agregada al album"});
+        return res.status(200).json({message: "Cancion agregada al album por defecto"});
 
         
     } catch (error) {

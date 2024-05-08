@@ -1,6 +1,6 @@
 const { Albums, Songs } = require("../../db");
 
-const addSongsToAlbum = async (req, res) => {
+const albumSongMove = async (req, res) => {
     const {songsiD } = req.query;
 
     try {
@@ -23,4 +23,4 @@ const addSongsToAlbum = async (req, res) => {
 }
 
 
-module.exports = addSongsToAlbum;
+module.exports = albumSongMove;

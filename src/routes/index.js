@@ -81,7 +81,7 @@ router.post("/users", postUsers);
 router.post("/pay", Pay);
 router.post("/paied", Paied);
 
-router.post("/songs", verifcationMiddleware, postSongs);  //jwt
+router.post("/songs", verifcationMiddleware, postSongs);
 router.post("/genres", postGenres);
 router.post("/artists", postArtists);
 router.post("/reviews", postReviews);

@@ -1,7 +1,7 @@
 const { Users } = require('../../db');
 
 const banUser = async (req, res) => {
-    const userId = req.params;
+    const userId = req.params.id;
     try {
         const [rowsUpdated, [updatedUser]] = await Users.update(
             { ban: true },

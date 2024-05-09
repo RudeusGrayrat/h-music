@@ -23,6 +23,7 @@ const getPlaylistDetail = require('../controllers/Playlists/getPlaylistDetail');
 const postSavingPlaylist = require('../controllers/Likes/postSavingPlaylist');
 const getUserPlaylist = require('../controllers/Playlists/getUserPlaylist');
 const getAlbums = require('../controllers/Albums/getAlbums');
+const getAlbumById = require('../controllers/Albums/getAlbumById');
 const postAlbums = require('../controllers/Albums/postAlbums');
 const getUserById = require('../controllers/Users/getUserById');
 const putUser = require('../controllers/Users/putUser');
@@ -56,6 +57,7 @@ router.get("/reviews/:songId", getReviewsBySongId);
 router.get("/artists", getArtist);
 router.get("/genres", getGenres);
 router.get("/albums", getAlbums);
+router.get("/albums/:id", getAlbumById);
 router.get("/login", login);
 router.get("/users", getUsers); //jwt
 router.get("/users/:userId", getUserById);

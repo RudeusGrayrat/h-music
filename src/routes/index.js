@@ -70,11 +70,12 @@ router.put("/editRol", verifcationMiddleware, putRol);
 router.put("/playlist/putPlaylist", putPlaylist);
 router.put("/users/:id/banUser", verifcationMiddleware, banUser);
 router.put("/users/:id/unbanUser", verifcationMiddleware, unBanUser);
+router.put("/users/:userId/putAdmin", putAdmin)
+router.put("/users/:userId/putDeleteAdmin", putDeleteAdmin)
+
 router.put("/albums/editAlbum", addSongsToAlbum);
 router.put("/albums/editAlbum/edit", editAlbum)
 router.put("/albums/albumSongMove", albumSongMove)
-router.put("/albums/:userId/putAdmin", putAdmin)
-router.put("/albums/:userId/putDeleteAdmin", putDeleteAdmin)
 
 router.patch("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
 

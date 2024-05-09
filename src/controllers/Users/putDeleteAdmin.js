@@ -9,7 +9,7 @@ const putDeleteAdmin = async (req, res) => {
         }
 
         await Users.update(
-            { rol: "remium" },
+            { rol: "premium" },
             {
                 where: {
                     id: userId

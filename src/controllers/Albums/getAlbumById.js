@@ -15,7 +15,9 @@ const getAlbumById = async (req, res) => {
             return res.status(404).json({ message: 'No se encontró ningún álbum con el ID proporcionado' });
         }
 
-        return res.status(200).json(album);
+        const songs = album.Songs ? album.Songs : [];
+
+        return res.status(200).json({ ...album.toJSON(), songs });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

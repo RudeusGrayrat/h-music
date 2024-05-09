@@ -70,8 +70,8 @@ router.put("/editRol", verifcationMiddleware, putRol);
 router.put("/playlist/putPlaylist", putPlaylist);
 router.put("/users/:id/banUser", verifcationMiddleware, banUser);
 router.put("/users/:id/unbanUser", verifcationMiddleware, unBanUser);
-router.put("/users/:userId/putAdmin", putAdmin)
-router.put("/users/:userId/putDeleteAdmin", putDeleteAdmin)
+router.put("/users/:userId/putAdmin",verifcationMiddleware, putAdmin)
+router.put("/users/:userId/putDeleteAdmin",verifcationMiddleware, putDeleteAdmin)
 
 router.put("/albums/editAlbum", addSongsToAlbum);
 router.put("/albums/editAlbum/edit", editAlbum)

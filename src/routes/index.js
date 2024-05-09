@@ -13,6 +13,7 @@ const postReviews = require("../controllers/Reviews/postReview");
 const getArtist = require('../controllers/Artists/getArtists');
 const getGenres = require('../controllers/Genres/getGenres');
 const postArtists = require('../controllers/Artists/postArtists');
+const putArtists = require('../controllers/Artists/putArtist');
 const getUsers = require('../controllers/Users/getUsers');
 const login = require('../controllers/Users/login');
 const postPlaylist = require('../controllers/Playlists/postPlaylist');
@@ -38,7 +39,7 @@ const putPlaylist = require('../controllers/Playlists/putPlaylist');
 const deletePlaylist = require('../controllers/Playlists/deletePlaylist');
 const deleteSongInPlaylist = require('../controllers/Playlists/deleteSongInPlaylist');
 const addSongsToAlbum = require('../controllers/Albums/addSongsToAlbum');
-const editAlbum = require('../controllers/Albums/editAlbum');
+const editAlbum = require('../controllers/Albums/putAlbum');
 const deleteAlbum = require('../controllers/Albums/deleteAlbum');
 const albumSongMove = require('../controllers/Albums/albumSongMove');
 const putAdmin = require('../controllers/Users/putAdmin');
@@ -74,10 +75,11 @@ router.put("/users/:userId/putAdmin",verifcationMiddleware, putAdmin)
 router.put("/users/:userId/putDeleteAdmin",verifcationMiddleware, putDeleteAdmin)
 
 router.put("/albums/editAlbum", addSongsToAlbum);
-router.put("/albums/editAlbum/edit", editAlbum)
 router.put("/albums/albumSongMove", albumSongMove)
 
 router.patch("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
+router.patch("/artists/editArtist/:id",verifcationMiddleware ,putArtists);
+router.patch("/albums/editAlbum/:id",verifcationMiddleware, editAlbum)
 
 router.post("/users", postUsers);
 router.post("/pay", Pay);

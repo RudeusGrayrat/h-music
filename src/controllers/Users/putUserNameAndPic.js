@@ -5,7 +5,7 @@ const { Users } = require("../../db");
 const putUserNameAndPic = async (req, res) => {
 
     const { name, image} = req.body;
-    const { id } = req.params;
+    const { id } = req.params.id;
     console.log(req.body);
 
     try {

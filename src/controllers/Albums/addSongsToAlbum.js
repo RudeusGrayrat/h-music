@@ -1,8 +1,6 @@
 const { Albums, Songs } = require("../../db");
 
 const addSongsToAlbum = async (req, res) => {
-    //este controlador a pesar de que dice addSongs es un put, ya que edita el modelo de la canción para cambiarle
-    //el id del album, ya que es por donde se referencia, en este caso, la cancion solo puede tener un album.
 
     const { albumsId, songsiD } = req.query;
     try {

@@ -18,7 +18,7 @@ server.use(morgan('dev'));
 server.use(cors({
   origin: ['http://localhost:3000', 'https://henry-music.vercel.app'],
   credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PATCH','OPTIONS', 'PUT', 'DELETE'],
 }));
 
 server.use('/', routes);

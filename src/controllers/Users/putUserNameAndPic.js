@@ -1,19 +1,11 @@
 const { Users } = require("../../db");
 
-
-
 const putUserNameAndPic = async (req, res) => {
-
-    const { name, image} = req.body;
-    const { id } = req.params.id;
-    console.log(req.body);
-
+    const { name, image } = req.body;
+    const { id } = req.params;
+    
     try {
-
-        const user = await Users.findOne({ 
-            where: { id } 
-        });
-        console.log(user);
+        const user = await Users.findOne({ where: { id } });
 
         if (!user) {
             return res.status(404).json({ 
@@ -22,40 +14,20 @@ const putUserNameAndPic = async (req, res) => {
                 errorCode: 'USER_NOT_FOUND' 
             });
         }
-
-        let fieldsToUpdate = {};
         if (name && user.name !== name) {
-            fieldsToUpdate.name = name;
+            await Users.update({ name }, { where: { id } });
         }
+
         if (image && user.image !== image) {
-            fieldsToUpdate.image = image;
+            await Users.update({ image }, { where: { id } });
         }
-    
-        if (Object.keys(fieldsToUpdate).length > 0) {
-            const updatedUser = await Users.update(
-                fieldsToUpdate,
-                { where: { id } }
-            );
-            if (updatedUser > 0) {
-                const newUser = await Users.findOne({ where: { id } });
-                return res.status(200).json({ 
-                    status: 'success', 
-                    data: newUser
-                });
-            } else {
-                return res.status(400).json({ 
-                    status: 'error', 
-                    message: 'La actualización del usuario falló por alguna razón', 
-                    errorCode: 'UPDATE_FAILED' 
-                });
-            }
-        } else {
-            return res.status(400).json({ 
-                status: 'error', 
-                message: 'No se proporcionaron campos para actualizar', 
-                errorCode: 'NO_UPDATE_FIELDS' 
-            });
-        }
+
+        const updatedUser = await Users.findOne({ where: { id } });
+
+        return res.status(200).json({ 
+            status: 'success', 
+            data: updatedUser
+        });
         
     } catch (error) {
         return res.status(500).json({ 
@@ -64,9 +36,6 @@ const putUserNameAndPic = async (req, res) => {
             errorCode: 'INTERNAL_SERVER_ERROR' 
         });
     }
-
 }
 
-
-
-module.exports = putUserNameAndPic;
+module.exports = putUserNameAndPic

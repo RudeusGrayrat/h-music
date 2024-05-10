@@ -76,7 +76,7 @@ router.put("/users/:id/unbanUser", verifcationMiddleware, unBanUser);
 router.put("/users/:userId/putAdmin",verifcationMiddleware, putAdmin)
 router.put("/users/:userId/putDeleteAdmin",verifcationMiddleware, putDeleteAdmin)
 
-router.put("/albums/editAlbum", addSongsToAlbum);
+router.put("/albums/editAlbum/:AlbumsID", addSongsToAlbum);
 router.put("/albums/albumSongMove", albumSongMove)
 
 router.patch("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);

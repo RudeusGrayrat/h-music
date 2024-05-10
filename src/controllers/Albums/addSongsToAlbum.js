@@ -1,33 +1,28 @@
-const { Albums, Songs } = require("../../db");
+const { Songs } = require("../../db");
 
 const addSongsToAlbum = async (req, res) => {
+    const { AlbumsID } = req.params;
+    const { id: songId } = req.body;
 
-    const { albumsId, songsiD } = req.query;
     try {
+        if (!AlbumsID || !songId) {
+            console.log("Faltan datos en la solicitud");
+            return res.status(400).json({ error: "Faltan datos" });
+        }
 
-        if (!albumsId || !songsiD) return res.status(400).json({ error: "Faltan datos" });
+        const song = await Songs.findByPk(songId);
+        if (!song) {
+            console.log("Canción no encontrada");
+            return res.status(404).json({ error: "Canción no encontrada" });
+        }
 
-        const album = await Albums.findByPk(albumsId);
+        await song.update({ AlbumsID });
 
-        if (!album) return res.status(404).json({ error: "Album no encontrado" });
-        
-        const song = await Songs.findOne({
-            where: {
-                id: songsiD
-            }
-        });
-        if (!song) return res.status(404).json({ error: "Cancion no encontrada" });
-
-        await song.update({ AlbumsID: albumsId });
-        
-        return res.status(200).json({message: "Cancion agregada al album por defecto"});
-
-        
+        return res.status(200).json({ message: "Canción movida al álbum especificado" });
     } catch (error) {
-
+        console.error("Error al procesar la solicitud:", error);
         res.status(400).json({ error: error.message });
     }
 }
-
 
 module.exports = addSongsToAlbum;

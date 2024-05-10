@@ -4,22 +4,36 @@ const { Playlists } = require("../../db");
 //recibe por body el nombre o la imagen y el id de la playlist a editar, y actualiza dependiendo de lo que
 //recibe.
 const putPlaylist = async (req, res) => {
-    const {name, image, id} = req.body;
+    let {name, image, id} = req.body;
+    console.log("name", name);
+    console.log("image", image);
+    console.log("id", id);
 
     try {
-        const playlistToEdit = await Playlists.findOne({ where: { id } });
 
+        const playlistToEdit = await Playlists.findOne({ where: { id } });
+        
+        if(!name && !image) {
+            return res.status(400).json({ message: "Faltan datos necesarios para actualizar la playlist" });
+        }
+
+        
         if (!playlistToEdit) {
             return res.status(404).json({ message: "La playlist no existe" });
         }
+        
+        if(!name || typeof name !== "string" || typeof name === undefined) {
+            name = playlistToEdit.name;
+        }
+
+        console.log("name", name);
+        console.log("image", image);
+        console.log("id", id);
 
         if(playlistToEdit.name === "Favoritos") {
             return res.status(400).json({ message: "No puedes editar la playlist Favoritos" });
         }
 
-        if(!name && !image) {
-            return res.status(400).json({ message: "Faltan datos necesarios para actualizar la playlist" });
-        }
         
         let incomingName = name.toLowerCase();
         const primeraLetraMayuscula = incomingName.charAt(0).toUpperCase();
@@ -29,22 +43,32 @@ const putPlaylist = async (req, res) => {
         }
 
         let updatedPlaylist;
+
+        
         if(name && !image) {
             updatedPlaylist = await playlistToEdit.update({ name }, { returning: true });
             return res.status(200).json({message: "Nombre de la playlist actualizada con exito", name: updatedPlaylist.name});
         }
-
+        
         if(!name && image) {
             updatedPlaylist = await playlistToEdit.update({ image }, { returning: true });
             return res.status(200).json({message: "Imagen de la playlist actualizada con exito", image: updatedPlaylist.image});
         }
-
+        
         updatedPlaylist = await playlistToEdit.update({ name, image }, { returning: true });
 
         return res.status(200).json({message: "Tanto el nombre como la imagen fueron actualizados con exito", name: updatedPlaylist.name, image: updatedPlaylist.image});
     
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        const errorDetails = {
+            error: {
+                message: error.message,
+                type: error.name,
+                stackTrace: error.stack
+            }
+        };
+    
+        return res.status(500).json(errorDetails);
     }
 }
 

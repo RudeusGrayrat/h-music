@@ -80,7 +80,7 @@ router.put("/users/:userId/putDeleteAdmin",verifcationMiddleware, putDeleteAdmin
 router.put("/albums/editAlbum/:AlbumsID", addSongsToAlbum);
 router.put("/albums/albumSongMove", albumSongMove)
 
-router.patch("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
+router.put("/users/editNameAndPic/:id", verifcationMiddleware, putUserNameAndPic);
 router.patch("/artists/editArtist/:id",verifcationMiddleware ,putArtists);
 router.patch("/albums/editAlbum/:id",verifcationMiddleware, editAlbum)
 

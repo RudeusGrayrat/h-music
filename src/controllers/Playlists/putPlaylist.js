@@ -24,11 +24,7 @@ const putPlaylist = async (req, res) => {
         
         if(!name || typeof name !== "string" || typeof name === undefined) {
             name = playlistToEdit.name;
-        }
-
-        console.log("name", name);
-        console.log("image", image);
-        console.log("id", id);
+        }       
 
         if(playlistToEdit.name === "Favoritos") {
             return res.status(400).json({ message: "No puedes editar la playlist Favoritos" });

@@ -13,8 +13,19 @@ const putPlaylist = async (req, res) => {
             return res.status(404).json({ message: "La playlist no existe" });
         }
 
+        if(playlistToEdit.name === "Favoritos") {
+            return res.status(400).json({ message: "No puedes editar la playlist Favoritos" });
+        }
+
         if(!name && !image) {
             return res.status(400).json({ message: "Faltan datos necesarios para actualizar la playlist" });
+        }
+        
+        let incomingName = name.toLowerCase();
+        const primeraLetraMayuscula = incomingName.charAt(0).toUpperCase();
+        const cadenaModificada = primeraLetraMayuscula + incomingName.slice(1);
+        if(cadenaModificada === "Favoritos") {
+            return res.status(400).json({ message: "No puedes colocarle el nombre de Favoritos a una playlist" });
         }
 
         let updatedPlaylist;
@@ -29,7 +40,9 @@ const putPlaylist = async (req, res) => {
         }
 
         updatedPlaylist = await playlistToEdit.update({ name, image }, { returning: true });
+
         return res.status(200).json({message: "Tanto el nombre como la imagen fueron actualizados con exito", name: updatedPlaylist.name, image: updatedPlaylist.image});
+    
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

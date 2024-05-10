@@ -1,15 +1,16 @@
-const { Users } = require('../../db');
+const { Users, Playlists } = require('../../db');
 const { hashPassword } = require('../../utils/bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET_KEY } = process.env;
 
+const favPlaylistImg = "https://res.cloudinary.com/daux5omzt/image/upload/v1715201906/_84b881a1-12ae-492f-8176-6f6dbd692691_eljswf.jpg";
 const secret = JWT_SECRET_KEY || 'tu_secreto';
 
 const postUsers = async (req, res) => {
     try {
 
         const { name, image, email, password, provider } = req.body;
-        console.log(req.body);
+        
         let hashedPassword;
         
         
@@ -47,11 +48,21 @@ const postUsers = async (req, res) => {
             password: hashedPassword,
         });
 
+        //creandole al nuevo usuario su playlist de favoritos.
+        console.log(newUser.id);
+
+        await Playlists.create({
+            name: 'Favoritos',
+            UsersID: newUser.id,
+            image: favPlaylistImg
+        });
+
         if(provider === 'google'){
             await newUser.update(
                 { esta_verificado: true }, 
                 { where: { id: newUser.id } }
             );
+
             const token = jwt.sign({ id: newUser.id }, secret, { expiresIn: '5h' });
 
             return res.status(201).json({

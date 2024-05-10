@@ -13,7 +13,9 @@ const deletePlaylist = async (req, res) => {
     try {
         const playListToDelete = await Playlists.findByPk(id);
 
-        
+        if(playListToDelete.name === 'Favoritos') {
+            return res.status(400).json({ error: 'No se puede eliminar la playlist Favoritos' });
+        }
 
         if (!playListToDelete) {    
             return res.status(404).json({ error: 'La playlist no existe' });

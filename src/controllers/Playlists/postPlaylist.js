@@ -10,6 +10,13 @@ const postPlaylist = async (req, res) => {
       return res.status(400).json({ error: 'El nombre de la playlist es obligatorio' });
     }
 
+    let incomingName = name.toLowerCase();
+        const primeraLetraMayuscula = incomingName.charAt(0).toUpperCase();
+        const cadenaModificada = primeraLetraMayuscula + incomingName.slice(1);
+        if(cadenaModificada === "Favoritos") {
+            return res.status(400).json({ message: "No puedes colocarle el nombre de Favoritos a una playlist" });
+        }
+
     // Verificar que se proporcionó un userId
     if (!userId) {
       return res.status(400).json({ error: 'El ID del usuario es obligatorio' });

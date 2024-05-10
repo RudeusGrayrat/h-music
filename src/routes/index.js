@@ -45,6 +45,7 @@ const deleteAlbum = require('../controllers/Albums/deleteAlbum');
 const albumSongMove = require('../controllers/Albums/albumSongMove');
 const putAdmin = require('../controllers/Users/putAdmin');
 const putDeleteAdmin = require('../controllers/Users/putDeleteAdmin');
+const addSongToFavorite = require('../controllers/Albums/addSongToFavorite');
 
 const router = Router();
 
@@ -95,6 +96,7 @@ router.post("/playlist", postPlaylist);
 router.post("/postPlaylist", postSongToPlaylist);
 router.post("/postSavingPlaylist", postSavingPlaylist);
 router.post("/albums", postAlbums);
+router.post("/playlist/favorites", addSongToFavorite);
 
 router.delete("/playlist/deleteSongFromPlaylist", deleteSongInPlaylist);
 router.delete("/playlist/deletePlaylist/:id", deletePlaylist);

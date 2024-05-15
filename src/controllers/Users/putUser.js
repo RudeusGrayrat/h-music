@@ -22,7 +22,7 @@ const putUser = async (req, res) => {
         }
 
         if(user.ban){
-            return res.status(401).json({ error: 'Usuario Baneado.' });
+            return res.status(403).json({ error: 'Usuario Baneado.' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);

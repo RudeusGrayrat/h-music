@@ -16,7 +16,7 @@ const getUserPlaylist = async (req, res) => {
     });
 
     if(user.ban){
-        return res.status(400).json({ error: 'El usuario esta baneado' });
+        return res.status(403).json({ error: 'El usuario esta baneado' });
     }
 
     

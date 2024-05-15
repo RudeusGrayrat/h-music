@@ -13,10 +13,13 @@ const getPlaylist = async(req,res) => {
                 }
             ]
         })
-        if(gettingPlaylist.length === 0){
+
+        const filteredPlaylist = gettingPlaylist.filter(playlist => playlist.name !== 'Favoritos')
+
+        if(filteredPlaylist.length === 0){
             return res.status(404).json({error:'no hay playlist disponibles'})
         } else{
-            return res.status(200).json(gettingPlaylist);
+            return res.status(200).json(filteredPlaylist);
         }
 
     } catch (error) {

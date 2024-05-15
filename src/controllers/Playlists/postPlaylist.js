@@ -15,12 +15,12 @@ const postPlaylist = async (req, res) => {
         const primeraLetraMayuscula = incomingName.charAt(0).toUpperCase();
         const cadenaModificada = primeraLetraMayuscula + incomingName.slice(1);
         if(cadenaModificada === "Favoritos") {
-            return res.status(400).json({ message: "No puedes colocarle el nombre de Favoritos a una playlist" });
+            return res.status(422).json({ error: "El nombre 'Favoritos' está reservado y no puede ser usado para una playlist." });
         }
 
     // Verificar que se proporcionó un userId
     if (!userId) {
-      return res.status(400).json({ error: 'El ID del usuario es obligatorio' });
+      return res.status(422).json({ error: 'Falta el ID del usuario. Por favor, proporciona un ID de usuario válido.' });
     }
     const user = await Users.findOne({
         where: {
@@ -28,13 +28,13 @@ const postPlaylist = async (req, res) => {
         }
       });
       
-      if (!user) {
-        return res.status(400).json({ error: 'El usuario no existe' });
-      }
+    if (!user) {
+      return res.status(404).json({ error: 'No se encontró el usuario con el ID proporcionado.' });
+    }
 
-      if(user.ban){
-        return res.status(400).json({ error: 'El usuario esta baneado' });
-      }
+    if(user.ban){
+      return res.status(403).json({ error: 'El usuario está baneado y no puede crear playlists.' });
+    }
 
     const amountOfPlaylists = await Playlists.findAll({
       where: {
@@ -43,7 +43,7 @@ const postPlaylist = async (req, res) => {
     });
 
     if(user.rol !== 'premium' && user.rol !== 'admin' && amountOfPlaylists.length >= 5) {
-      return res.status(400).json({ error: 'No puedes crear mas de 5 playlists' });
+      return res.status(403).json({ error: 'Has alcanzado el límite de playlists. Los usuarios no premium no pueden crear más de 5 playlists.' });
     }
 
     const newPlaylist = await Playlists.create({

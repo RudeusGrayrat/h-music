@@ -26,13 +26,14 @@ const login = async (req, res) => {
             name: user.name,
         } 
 
+        if(user.ban) {
+            return res.status(403).json({ message: "Usuario baneado" });
+        }
+        
         if (!response) {
             return res.status(401).json({ message: "Contraseña incorrecta" });
         }
 
-        if(user.ban) {
-            return res.status(403).json({ message: "Usuario baneado" });
-        }
 
         const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "5h"});
         // Reemplaza el token del usuario en el objeto user

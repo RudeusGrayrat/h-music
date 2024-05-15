@@ -24,6 +24,11 @@ const postUsers = async (req, res) => {
 
         // Verificar si el usuario ya existe
         const existingUser = await Users.findOne({ where: { email } });
+        
+        if(existingUser.ban){
+            return res.status(403).json({ error: 'El usuario está baneado.' });
+        }
+
 
         if (existingUser && provider !== 'google') {
             console.log('El usuario ya existe');

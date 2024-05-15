@@ -31,7 +31,7 @@ const login = async (req, res) => {
         }
 
         if(user.ban) {
-            return res.status(408).json({ message: "Usuario baneado" });
+            return res.status(403).json({ message: "Usuario baneado" });
         }
 
         const token = jsonSign(userData, JWT_SECRET_KEY, { expiresIn : "5h"});

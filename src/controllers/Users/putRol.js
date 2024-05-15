@@ -23,6 +23,10 @@ const putRol = async (email) => {
 
         const user = await Users.findOne({ where: { email } });
 
+        if(user.ban) {
+            throw new Error('El usuario se encuentra baneado');
+        }
+
         const date = new Date(Date.now());
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');

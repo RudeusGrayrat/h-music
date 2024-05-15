@@ -4,11 +4,22 @@ const { Playlists, Users } = require('../../db.js');
 const getUserPlaylist = async (req, res) => {
     const { userId } = req.params;
 
+    try {
     if (!userId) {
         return res.status(400).json({ error: 'Falta el ID del usuario' });
     }
 
-    try {
+    const user = await Users.findOne({
+        where: {
+          id: userId
+        }
+    });
+
+    if(user.ban){
+        return res.status(400).json({ error: 'El usuario esta baneado' });
+    }
+
+    
         const playlists = await Playlists.findAll({
             where: {
                 UsersID: userId  

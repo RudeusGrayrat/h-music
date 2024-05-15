@@ -5,9 +5,6 @@ const { Playlists } = require("../../db");
 //recibe.
 const putPlaylist = async (req, res) => {
     let {name, image, id} = req.body;
-    console.log("name", name);
-    console.log("image", image);
-    console.log("id", id);
 
     try {
 

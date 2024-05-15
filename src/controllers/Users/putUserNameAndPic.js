@@ -14,6 +14,14 @@ const putUserNameAndPic = async (req, res) => {
                 errorCode: 'USER_NOT_FOUND' 
             });
         }
+
+        if(user.ban){
+            return res.status(403).json({ 
+                status: 'error', 
+                message: 'No se puede modificar un usuario baneado', 
+                errorCode: 'USER_BANNED' 
+            });
+        }
         if (name && user.name !== name) {
             await Users.update({ name }, { where: { id } });
         }

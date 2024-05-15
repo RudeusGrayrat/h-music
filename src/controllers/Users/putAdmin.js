@@ -8,6 +8,20 @@ const putAdmin = async (req, res) => {
             throw new Error('No se proporcionó un ID de usuario.');
         }
 
+        const user = await Users.findOne({
+            where: {
+                id: userId
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: 'No se encontró el usuario.' });
+        }
+
+        if(user.ban) {
+            return res.status(400).json({ error: 'no se puede dar admin a un usuario baneado' });
+        }
+
         await Users.update(
             { rol: "admin" },
             {

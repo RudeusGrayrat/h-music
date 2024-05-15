@@ -21,6 +21,10 @@ const putUser = async (req, res) => {
             return res.status(404).json({ error: 'Usuario no encontrado. Por favor, verifica el correo electrónico proporcionado.' });
         }
 
+        if(user.ban){
+            return res.status(401).json({ error: 'Usuario Baneado.' });
+        }
+
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {

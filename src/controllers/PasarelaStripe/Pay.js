@@ -1,8 +1,22 @@
+const{ Users } = require('../../db');
 const { APY_KEY_STRIPE, FRONTURL} = process.env;
 const stripe = require('stripe')(APY_KEY_STRIPE)
 const Pay = async (req, res) => {
     try {
           const { email } = req.body;
+
+          const user = await Users.findOne({
+            where: {
+                email
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        if (user.ban) {
+            return res.status(401).json({ error: 'Usuario baneado' });
+        }
 
         const session = await stripe.checkout.sessions.create({
             success_url: `${FRONTURL}/pay`,

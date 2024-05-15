@@ -6,6 +6,7 @@ const postPlaylist = async (req, res) => {
   try {
     const { name, userId } = req.body;
 
+
     if (!name) {
       return res.status(400).json({ error: 'El nombre de la playlist es obligatorio' });
     }
@@ -29,6 +30,10 @@ const postPlaylist = async (req, res) => {
       
       if (!user) {
         return res.status(400).json({ error: 'El usuario no existe' });
+      }
+
+      if(user.ban){
+        return res.status(400).json({ error: 'El usuario esta baneado' });
       }
 
     const amountOfPlaylists = await Playlists.findAll({

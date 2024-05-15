@@ -18,7 +18,7 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
-        
+
         const response = await compare(password, user.password);
         
         const userData = {

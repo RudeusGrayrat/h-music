@@ -1,10 +1,20 @@
-const { Playlists, PlaylistDetails, Songs, Artists, Genres } = require("../../db");
+const { Playlists, PlaylistDetails, Songs, Artists, Genres, Users } = require("../../db");
 
 const addSongToFavorite = async(req,res) => {
 
     try {
         
     const { userId, songId  } = req.body;
+
+    const user = await Users.findOne({
+        where: {
+          id: userId
+        }
+    });
+
+    if(user.ban){
+        return res.status(400).json({ error: 'El usuario esta baneado' });
+    }
 
     const song = await Songs.findOne({
         where: {

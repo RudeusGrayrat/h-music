@@ -47,7 +47,7 @@ const postSongs = async (req, res) => {
 
         return res.status(200).json(responseData);
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         res.status(500).json({ error: 'Error al crear una nueva canción' });
     }
 };
